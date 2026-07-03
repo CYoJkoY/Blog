@@ -51,6 +51,20 @@
     border: 1px solid var(--border-color);
 }
 
+.note-content pre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    background: rgba(22, 27, 34, 0.92);
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
 .note-content pre {
     position: relative;
     background: #0a0e14;
@@ -73,22 +87,68 @@
 .note-content pre .code-lang {
     position: absolute;
     top: 0;
-    right: 0.8rem;
+    left: 0;
     font-size: 0.75rem;
     font-family: var(--font-mono);
-    color: var(--accent-cyan);
-    background: rgba(22, 27, 34, 0.95);
-    padding: 0.15rem 0.8rem;
-    border-radius: 0 0 6px 6px;
-    border: 1px solid var(--accent-cyan);
-    border-top: none;
+    padding: 0 0.6rem;
+    height: 24px;
+    line-height: 24px;
+    background: none;
+    border: none;
+    border-right: 1px solid var(--border-color);
+    border-radius: 0;
     text-transform: lowercase;
     letter-spacing: 0.5px;
+    color: #6a9955;
     pointer-events: none;
     font-weight: 500;
-    color: #6a9955;
-    border-color: #6a9955;
-    background: rgba(13, 17, 23, 0.95);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.note-content pre .code-tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 24px;
+    z-index: 2;
+}
+
+.code-tools .code-action-btn {
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--border-color);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    height: 100%;
+    width: 28px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.code-tools .code-action-btn:hover {
+    background: rgba(122, 208, 230, 0.15);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: inset 0 0 8px rgba(122, 208, 230, 0.2);
+    text-shadow: 0 0 6px rgba(122, 208, 230, 0.5);
+}
+
+.code-tools .code-action-btn:first-child {
+    border-radius: 0 0 0 6px;
+}
+
+.code-tools .code-action-btn:last-child {
+    border-radius: 0 0 6px 0;
 }
 
 .note-content blockquote {
