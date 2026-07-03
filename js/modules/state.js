@@ -12,6 +12,7 @@ let currentId = null;
 export function getCurrentId() {
     return currentId;
 }
+
 export function setCurrentId(id) {
     currentId = id;
 }
@@ -20,6 +21,7 @@ let currentTag = null;
 export function getCurrentTag() {
     return currentTag;
 }
+
 export function setCurrentTag(tag) {
     currentTag = tag;
 }
@@ -28,6 +30,7 @@ let searchKeyword = "";
 export function getSearchKeyword() {
     return searchKeyword;
 }
+
 export function setSearchKeyword(keyword) {
     searchKeyword = keyword.trim().toLowerCase();
 }

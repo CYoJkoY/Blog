@@ -1,6 +1,10 @@
 import { listView, detailView } from "./dom.js";
 import { getNoteById, getAllNotes, setCurrentTag } from "./state.js";
 
+const lightbox = document.getElementById("image-lightbox");
+const lightboxImg = lightbox?.querySelector(".lightbox-img");
+const lightboxClose = lightbox?.querySelector(".lightbox-close");
+
 export function renderDetail(id, onBack) {
     const note = getNoteById(id);
     if (!note) {
@@ -35,11 +39,13 @@ export function renderDetail(id, onBack) {
     } else {
         navHtml += `<span class="nav-placeholder"></span>`;
     }
+
     if (nextNote) {
         navHtml += `<a class="nav-next" data-id="${nextNote.id}">${nextNote.title} →</a>`;
     } else {
         navHtml += `<span class="nav-placeholder"></span>`;
     }
+
     navHtml += `</div>`;
 
     detailView.innerHTML = `
@@ -88,6 +94,31 @@ export function renderDetail(id, onBack) {
 
     listView.style.display = "none";
     detailView.style.display = "block";
+
+    detailView.querySelectorAll(".note-content img").forEach((img) => {
+        img.style.cursor = "zoom-in";
+        img.addEventListener("click", function () {
+            if (!lightbox || !lightboxImg) return;
+            lightboxImg.src = this.src;
+            lightbox.classList.add("active");
+        });
+    });
+
+    if (lightbox) {
+        lightbox.addEventListener("click", function (e) {
+            if (e.target === lightbox || e.target === lightboxClose) {
+                lightbox.classList.remove("active");
+                lightboxImg.src = "";
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && lightbox.classList.contains("active")) {
+                lightbox.classList.remove("active");
+                lightboxImg.src = "";
+            }
+        });
+    }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }

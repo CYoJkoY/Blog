@@ -36,3 +36,11 @@ const answer = 42;
 ### 引用链接
 
 你可以访问 [GitHub](https://github.com) 或 [示例网址](https://example.com)。
+
+### 图片
+
+![测试](./imgs/Blog.png =100x100)
+
+## 结语
+
+欢迎访问我的赛博笔记，希望你在这里找到灵感和乐趣。如果你有任何问题或建议，请随时告诉我。

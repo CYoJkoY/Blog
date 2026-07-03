@@ -8,6 +8,7 @@ footer {
     font-family: var(--font-mono);
     letter-spacing: 0.5px;
 }
+
 footer::before {
     content: "❯_ 数据终端";
     display: block;

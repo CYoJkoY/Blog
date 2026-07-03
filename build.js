@@ -10,6 +10,7 @@ if (!fs.existsSync(POSTS_DIR)) {
     fs.mkdirSync(POSTS_DIR, { recursive: true });
     console.log("📁 已创建 posts 文件夹，请放入 .md 笔记。");
 }
+
 if (!fs.existsSync(path.dirname(OUTPUT_FILE))) {
     fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
 }
@@ -47,7 +48,23 @@ const notes = files.map((file) => {
 
     let htmlContent = "";
     try {
-        htmlContent = marked.parse(body);
+        const processedBody = body.replace(
+            /!\[(.*?)\]\((.+?)\s*=\s*(\d+)x(\d+)\)/g,
+            (match, alt, url, w, h) => {
+                let imgSrc = url;
+                if (imgSrc.startsWith("./")) {
+                    imgSrc = `/posts/${imgSrc.slice(2)}`;
+                } else if (
+                    !imgSrc.startsWith("/") &&
+                    !imgSrc.startsWith("http")
+                ) {
+                    imgSrc = `/posts/${imgSrc}`;
+                }
+                return `<img src="${imgSrc}" alt="${alt}" width="${w}" height="${h}" style="width:${w}px;height:${h}px;">`;
+            },
+        );
+
+        htmlContent = marked.parse(processedBody);
     } catch (e) {
         console.error(`❌ 转换 Markdown 失败 (${file})：`, e.message);
         htmlContent = `<p>内容解析出错。</p>`;

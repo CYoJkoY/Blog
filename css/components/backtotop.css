@@ -16,10 +16,12 @@
     box-shadow: var(--shadow-glow);
     z-index: 999;
 }
+
 #back-to-top.visible {
     opacity: 1;
     visibility: visible;
 }
+
 #back-to-top:hover {
     background: var(--accent-cyan);
     color: var(--bg-primary);

@@ -5,31 +5,38 @@
     font-weight: 500;
     margin: 1.8rem 0 0.6rem 0;
 }
+
 .note-content h1 {
     font-size: 1.8rem;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.3rem;
 }
+
 .note-content h2 {
     font-size: 1.5rem;
     color: var(--accent-cyan);
 }
+
 .note-content h3 {
     font-size: 1.2rem;
     color: var(--text-secondary);
 }
+
 .note-content p {
     margin: 0.8rem 0;
     color: #d0d7de;
 }
+
 .note-content a {
     color: var(--accent-cyan);
     text-decoration: none;
     border-bottom: 1px solid rgba(122, 208, 230, 0.2);
 }
+
 .note-content a:hover {
     border-bottom-color: var(--accent-cyan);
 }
+
 .note-content code {
     font-family: var(--font-mono);
     background: rgba(45, 53, 72, 0.5);
@@ -39,6 +46,7 @@
     color: var(--accent-pink);
     border: 1px solid var(--border-color);
 }
+
 .note-content pre {
     background: #0a0e14;
     padding: 1.2rem;
@@ -48,6 +56,7 @@
     border: 1px solid var(--border-color);
     border-left: 3px solid var(--accent-cyan);
 }
+
 .note-content pre code {
     background: transparent;
     border: none;
@@ -55,6 +64,7 @@
     padding: 0;
     font-size: 0.85rem;
 }
+
 .note-content blockquote {
     border-left: 3px solid var(--accent-pink);
     padding-left: 1.2rem;
@@ -65,11 +75,31 @@
     padding: 0.5rem 1.2rem;
     border-radius: 0 var(--radius) var(--radius) 0;
 }
+
 .note-content ul,
 .note-content ol {
     padding-left: 1.8rem;
     margin: 0.6rem 0;
 }
+
 .note-content li {
     margin: 0.3rem 0;
+}
+
+.note-content img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: auto;
+    display: block;
+    margin: 1.5rem 0;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-glow);
+    transition: all var(--transition);
+}
+
+.note-content img:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(122, 208, 230, 0.25);
+    transform: scale(1.01);
 }

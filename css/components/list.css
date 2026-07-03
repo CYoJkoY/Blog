@@ -6,6 +6,7 @@
     padding-bottom: 0.8rem;
     border-bottom: 1px solid var(--border-color);
 }
+
 #search-input {
     flex: 1;
     background: var(--bg-secondary);
@@ -18,13 +19,16 @@
     outline: none;
     transition: border var(--transition);
 }
+
 #search-input:focus {
     border-color: var(--accent-cyan);
     box-shadow: 0 0 0 3px rgba(122, 208, 230, 0.1);
 }
+
 #search-input::placeholder {
     color: var(--text-muted);
 }
+
 .note-count {
     font-family: var(--font-mono);
     font-size: 0.8rem;
@@ -40,6 +44,7 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
 }
+
 .tag-item {
     display: inline-block;
     padding: 0.2rem 0.9rem;
@@ -53,18 +58,21 @@
     transition: all var(--transition);
     user-select: none;
 }
+
 .tag-item:hover {
     border-color: var(--accent-cyan);
     color: var(--accent-cyan);
     background: rgba(122, 208, 230, 0.05);
     transform: translateY(-1px);
 }
+
 .tag-item.active {
     background: var(--accent-cyan);
     color: var(--bg-primary);
     border-color: var(--accent-cyan);
     font-weight: 500;
 }
+
 .tag-item.active:hover {
     background: var(--accent-cyan);
     opacity: 0.85;
@@ -101,6 +109,7 @@
 #list-view .note-item:hover .title {
     color: var(--accent-cyan);
 }
+
 #list-view .note-item:hover .meta {
     color: var(--text-secondary);
 }
@@ -113,6 +122,7 @@
     border: 1px dashed var(--border-color);
     border-radius: var(--radius);
 }
+
 .note-tag {
     display: inline-block;
     font-family: var(--font-mono);
