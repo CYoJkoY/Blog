@@ -6,8 +6,6 @@ const marked = require("marked");
 const POSTS_DIR = path.join(__dirname, "posts");
 const OUTPUT_FILE = path.join(__dirname, "js", "data.js");
 
-const BASE_PATH = "/Blog/";
-
 if (!fs.existsSync(POSTS_DIR)) {
     fs.mkdirSync(POSTS_DIR, { recursive: true });
     console.log("📁 已创建 posts 文件夹，请放入 .md 笔记。");
@@ -55,12 +53,12 @@ const notes = files.map((file) => {
             (match, alt, url, w, h) => {
                 let imgSrc = url;
                 if (imgSrc.startsWith("./")) {
-                    imgSrc = `${BASE_PATH}/posts/${imgSrc.slice(2)}`;
+                    imgSrc = `posts/${imgSrc.slice(2)}`;
                 } else if (
                     !imgSrc.startsWith("/") &&
                     !imgSrc.startsWith("http")
                 ) {
-                    imgSrc = `${BASE_PATH}/posts/${imgSrc}`;
+                    imgSrc = `posts/${imgSrc}`;
                 }
                 return `<img src="${imgSrc}" alt="${alt}" width="${w}" height="${h}" style="width:${w}px;height:${h}px;">`;
             },
