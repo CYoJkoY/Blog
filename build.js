@@ -2,6 +2,41 @@ const fs = require("fs");
 const path = require("path");
 const frontMatter = require("front-matter");
 const marked = require("marked");
+const hljs = require("highlight.js");
+
+const renderer = new marked.Renderer();
+
+renderer.code = function (code) {
+    let codeStr, lang;
+
+    if (typeof code === "object" && code !== null) {
+        codeStr = code.text || "";
+        lang = code.lang || "";
+    } else {
+        codeStr = String(code);
+        lang = "";
+    }
+
+    const langMarker = codeStr.match(/^<!--lang:(\w+)-->\n/);
+    if (langMarker) {
+        lang = langMarker[1];
+        codeStr = codeStr.slice(langMarker[0].length);
+    }
+
+    let highlighted;
+    if (lang) {
+        try {
+            highlighted = hljs.highlight(codeStr, { language: lang }).value;
+        } catch (e) {
+            highlighted = codeStr;
+        }
+    } else {
+        highlighted = codeStr;
+    }
+
+    const langLabel = lang ? `<span class="code-lang">${lang}</span>` : "";
+    return `<pre><code class="hljs language-${lang}">${highlighted}</code>${langLabel}</pre>`;
+};
 
 const POSTS_DIR = path.join(__dirname, "posts");
 const OUTPUT_FILE = path.join(__dirname, "js", "data.js");
@@ -64,7 +99,7 @@ const notes = files.map((file) => {
             },
         );
 
-        htmlContent = marked.parse(processedBody);
+        htmlContent = marked.parse(processedBody, { renderer });
     } catch (e) {
         console.error(`❌ 转换 Markdown 失败 (${file})：`, e.message);
         htmlContent = `<p>内容解析出错。</p>`;

@@ -1,0 +1,142 @@
+/*
+    Theme: Godot Editor (Dark)
+    Based on Godot Editor Theme for VSCode
+    Converted for highlight.js
+*/
+
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+}
+
+code.hljs {
+    padding: 3px 5px;
+}
+
+.hljs {
+    color: #cdcfd2;
+    background: #1d2229;
+}
+
+/* Keywords */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-meta,
+.hljs-doctag,
+.hljs-section,
+.hljs-name {
+    color: #569cd6;
+}
+
+/* Strings */
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute {
+    color: #ce9178;
+}
+
+/* Numbers */
+.hljs-number,
+.hljs-bullet,
+.hljs-code,
+.hljs-formula {
+    color: #b5cea8;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+    color: #6a9955;
+    font-style: italic;
+}
+
+/* Functions / Methods */
+.hljs-title.function_,
+.hljs-built_in {
+    color: #dcdcaa;
+}
+
+/* Classes / Types */
+.hljs-title.class_,
+.hljs-type,
+.hljs-title.class_.inherited__ {
+    color: #4ec9b0;
+}
+
+/* Variables */
+.hljs-variable,
+.hljs-attr,
+.hljs-property {
+    color: #9cdcfe;
+}
+
+/* Constants (like true/false/null) */
+.hljs-literal {
+    color: #569cd6;
+}
+
+/* Operators */
+.hljs-operator {
+    color: #d4d4d4;
+}
+
+/* Punctuation */
+.hljs-punctuation,
+.hljs-tag {
+    color: #808080;
+}
+
+/* Template expressions */
+.hljs-template-tag,
+.hljs-template-variable {
+    color: #569cd6;
+}
+
+/* Escape characters */
+.hljs-char.escape_ {
+    color: #d7ba7d;
+}
+
+/* Links */
+.hljs-link {
+    color: #ce9178;
+}
+
+/* Deletion */
+.hljs-deletion {
+    color: #ce9178;
+    background-color: #78191b;
+}
+
+/* Emphasis */
+.hljs-emphasis {
+    font-style: italic;
+}
+
+/* Strong */
+.hljs-strong {
+    font-weight: bold;
+}
+
+/* Other selectors (CSS) */
+.hljs-selector-class,
+.hljs-selector-id {
+    color: #d7ba7d;
+}
+
+.hljs-selector-pseudo {
+    color: #c586c0;
+}
+
+/* Handle specific constants */
+.hljs-params {
+    color: #cdcfd2;
+}
+
+/* Markdown headings */
+.hljs-section {
+    font-weight: bold;
+}

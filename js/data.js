@@ -1,6 +1,16 @@
 // 由 build.js 自动生成，请勿手动编辑
 export const notes = [
   {
+    "id": "Install MapleMono-NF-CN Font",
+    "title": "使用Scoop安装MapleMono-NF-CN字体并配置Vscode及网页",
+    "date": "2026-07-03",
+    "tags": [
+      "学习",
+      "配置"
+    ],
+    "content": "<h1>使用Scoop安装MapleMono-NF-CN字体</h1>\n<ol>\n<li>打开cmd后输入以下命令（请确保你已经安装了Scoop）：</li>\n<li>scoop bucket add nerd-fonts</li>\n<li>scoop install Maple-Mono-NF-CN</li>\n<li>Win+R输入fonts打开系统字体文件夹</li>\n<li>将安装的MapleMono-NF-CN字体添加到系统字体文件夹中</li>\n</ol>\n<h1>配置Vscode使用该字体</h1>\n<p>打开Vscode的设置（Ctrl + ,） 搜索<strong>Font Family</strong>，在<strong>Editor: Font Family</strong>中填入</p>\n<pre><code class=\"hljs language-text\">&#x27;Maple Mono NF CN&#x27;, monospace</code><span class=\"code-lang\">text</span></pre><p>在<strong>Terminal&gt;Integrated: Font Family</strong>中填入</p>\n<pre><code class=\"hljs language-text\">Maple Mono NF CN</code><span class=\"code-lang\">text</span></pre><p>之后在settings.json文件里面编辑Editor: Font Ligatures属性</p>\n<p>或直接编辑settings.json文件，添加以下内容：</p>\n<pre><code class=\"hljs language-json\"><span class=\"hljs-attr\">&quot;editor.fontFamily&quot;</span><span class=\"hljs-punctuation\">:</span> <span class=\"hljs-string\">&quot;&#x27;Maple Mono NF CN&#x27;, monospace&quot;</span><span class=\"hljs-punctuation\">,</span>\n<span class=\"hljs-attr\">&quot;terminal.integrated.fontFamily&quot;</span><span class=\"hljs-punctuation\">:</span> <span class=\"hljs-string\">&quot;Maple Mono NF CN&quot;</span><span class=\"hljs-punctuation\">,</span>\n<span class=\"hljs-attr\">&quot;editor.fontLigatures&quot;</span><span class=\"hljs-punctuation\">:</span> <span class=\"hljs-string\">&quot;&#x27;calt&#x27;, &#x27;cv96&#x27;, &#x27;cv97&#x27;, &#x27;cv98&#x27;&quot;</span><span class=\"hljs-punctuation\">,</span></code><span class=\"code-lang\">json</span></pre><p>关键特性：</p>\n<ul>\n<li>cv96：启用全宽引号显示</li>\n<li>cv97：修复省略号宽度问题</li>\n<li>cv98：确保破折号正确显示</li>\n</ul>\n"
+  },
+  {
     "id": "Urology",
     "title": "泌尿外科常见临床问题",
     "date": "2026-07-03",
@@ -18,6 +28,6 @@ export const notes = [
     "tags": [
       "测试"
     ],
-    "content": "<h1>你好，数据流</h1>\n<p>这里是第一篇笔记，用 <strong>Markdown</strong> 编写，并自动构建为 HTML。</p>\n<blockquote>\n<p>“信息就是一切，一切皆为信息。”</p>\n</blockquote>\n<h2>为什么选择纯原生？</h2>\n<ul>\n<li><strong>零依赖</strong>：前端只有 HTML + CSS + JS</li>\n<li><strong>完全掌控</strong>：每一行代码都是自己的</li>\n<li><strong>赛博美学</strong>：暗色基调 + 霓虹点缀，不刺眼</li>\n</ul>\n<h2>代码块示例（支持语法高亮样式）</h2>\n<pre><code class=\"language-javascript\">console.log(&quot;Hello, Cyber World!&quot;);\nconst answer = 42;\n</code></pre>\n<h2>更多元素</h2>\n<p><strong>加粗文字</strong>，<em>斜体文字</em>，<code>行内代码</code>。</p>\n<h3>有序列表</h3>\n<ol>\n<li>第一项</li>\n<li>第二项</li>\n<li>第三项</li>\n</ol>\n<h3>引用链接</h3>\n<p>你可以访问 <a href=\"https://github.com\">GitHub</a> 或 <a href=\"https://example.com\">示例网址</a>。</p>\n<h3>图片</h3>\n<img src=\"posts/imgs/Blog.png\" alt=\"测试\" width=\"100\" height=\"100\" style=\"width:100px;height:100px;\">\n\n<h2>结语</h2>\n<p>欢迎访问我的赛博笔记，希望你在这里找到灵感和乐趣。如果你有任何问题或建议，请随时告诉我。</p>\n"
+    "content": "<h1>你好，数据流</h1>\n<p>这里是第一篇笔记，用 <strong>Markdown</strong> 编写，并自动构建为 HTML。</p>\n<blockquote>\n<p>“信息就是一切，一切皆为信息。”</p>\n</blockquote>\n<h2>为什么选择纯原生？</h2>\n<ul>\n<li><strong>零依赖</strong>：前端只有 HTML + CSS + JS</li>\n<li><strong>完全掌控</strong>：每一行代码都是自己的</li>\n<li><strong>赛博美学</strong>：暗色基调 + 霓虹点缀，不刺眼</li>\n</ul>\n<h2>代码块示例（支持语法高亮样式）</h2>\n<pre><code class=\"hljs language-javascript\"><span class=\"hljs-variable language_\">console</span>.<span class=\"hljs-title function_\">log</span>(<span class=\"hljs-string\">&quot;Hello, Cyber World!&quot;</span>);\n<span class=\"hljs-keyword\">const</span> answer = <span class=\"hljs-number\">42</span>;</code><span class=\"code-lang\">javascript</span></pre><h2>更多元素</h2>\n<p><strong>加粗文字</strong>，<em>斜体文字</em>，<code>行内代码</code>。</p>\n<h3>有序列表</h3>\n<ol>\n<li>第一项</li>\n<li>第二项</li>\n<li>第三项</li>\n</ol>\n<h3>引用链接</h3>\n<p>你可以访问 <a href=\"https://github.com\">GitHub</a> 或 <a href=\"https://example.com\">示例网址</a>。</p>\n<h3>图片</h3>\n<img src=\"posts/imgs/Blog.png\" alt=\"测试\" width=\"100\" height=\"100\" style=\"width:100px;height:100px;\"><h2>结语</h2>\n<p>欢迎访问我的赛博笔记，希望你在这里找到灵感和乐趣。如果你有任何问题或建议，请随时告诉我。</p>\n"
   }
 ];

@@ -14,12 +14,16 @@
 
 .note-content h2 {
     font-size: 1.5rem;
-    color: var(--accent-cyan);
+    color: var(--accent-pink);
 }
 
 .note-content h3 {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    font-weight: 400;
+    color: #b5a7ae;
+    margin: 1.6rem 0 0.8rem 0;
+    line-height: 1.5;
+    letter-spacing: 0;
 }
 
 .note-content p {
@@ -48,8 +52,9 @@
 }
 
 .note-content pre {
+    position: relative;
     background: #0a0e14;
-    padding: 1.2rem;
+    padding: 2.2rem 1.2rem 1.2rem 1.2rem;
     border-radius: var(--radius);
     overflow-x: auto;
     margin: 1rem 0;
@@ -63,6 +68,27 @@
     color: #c9d1d9;
     padding: 0;
     font-size: 0.85rem;
+}
+
+.note-content pre .code-lang {
+    position: absolute;
+    top: 0;
+    right: 0.8rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--accent-cyan);
+    background: rgba(22, 27, 34, 0.95);
+    padding: 0.15rem 0.8rem;
+    border-radius: 0 0 6px 6px;
+    border: 1px solid var(--accent-cyan);
+    border-top: none;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    font-weight: 500;
+    color: #6a9955;
+    border-color: #6a9955;
+    background: rgba(13, 17, 23, 0.95);
 }
 
 .note-content blockquote {

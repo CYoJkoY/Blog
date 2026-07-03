@@ -10,8 +10,6 @@
     --accent-cyan: #7ad0e6;
     --accent-pink: #c28b9e;
     --shadow-glow: 0 0 15px rgba(122, 208, 230, 0.06);
-    --font-mono: "JetBrains Mono", "Fira Code", monospace;
-    --font-sans: system-ui, -apple-system, sans-serif;
     --radius: 8px;
     --transition: 0.2s ease-in-out;
 }

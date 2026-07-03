@@ -1,5 +1,6 @@
 @import "variables.css";
 @import "base.css";
+@import "godot-theme.css";
 @import "components/header.css";
 @import "components/list.css";
 @import "components/detail.css";
