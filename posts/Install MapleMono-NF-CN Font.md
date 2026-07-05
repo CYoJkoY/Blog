@@ -1,5 +1,5 @@
 ---
-title: 使用Scoop安装MapleMono-NF-CN字体并配置Vscode及网页
+title: 使用Scoop安装MapleMono-NF-CN字体并配置Vscode
 date: 2026-07-03
 tags: [学习, 配置]
 ---
@@ -14,7 +14,7 @@ tags: [学习, 配置]
 
 # 配置Vscode使用该字体
 
-打开Vscode的设置（Ctrl + ,） 搜索**Font Family**，在**Editor: Font Family**中填入
+1. 打开Vscode的设置（Ctrl + ,） 搜索**Font Family**，在**Editor: Font Family**中填入
 
 ```text
 'Maple Mono NF CN', monospace
@@ -26,9 +26,9 @@ tags: [学习, 配置]
 Maple Mono NF CN
 ```
 
-之后在settings.json文件里面编辑Editor: Font Ligatures属性
+2. 之后在settings.json文件里面编辑Editor: Font Ligatures属性
 
-或直接编辑settings.json文件，添加以下内容：
+3. 或直接编辑settings.json文件，添加以下内容：
 
 ```json
 "editor.fontFamily": "'Maple Mono NF CN', monospace",
