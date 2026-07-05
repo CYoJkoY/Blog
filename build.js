@@ -5,7 +5,7 @@ const frontMatter = require("front-matter");
 const marked = require("marked");
 const hljs = require("highlight.js");
 
-const POSTS_DIR = path.join(__dirname, "posts");
+const POSTS_DIR = path.join(__dirname, "public", "posts");
 const OUTPUT_DIR = path.join(__dirname, "public", "data");
 const NOTES_DIR = path.join(OUTPUT_DIR, "notes");
 const INDEX_PATH = path.join(OUTPUT_DIR, "index.json");
@@ -133,12 +133,18 @@ for (const file of files) {
     const processedBody = body.replace(
         /!\[(.*?)\]\((.+?)(?:\s*=\s*(\d+)x(\d+))?\)/g,
         (match, alt, url, w, h) => {
-            let imgSrc = url;
-            if (imgSrc.startsWith("./")) {
-                imgSrc = "posts/" + imgSrc.slice(2);
-            } else if (!imgSrc.startsWith("/") && !imgSrc.startsWith("http")) {
-                imgSrc = "/posts/" + imgSrc;
+            if (
+                url.startsWith("http") ||
+                url.startsWith("//") ||
+                url.startsWith("/")
+            ) {
+                return match;
             }
+
+            let cleanUrl = url.replace(/^\.\//, "");
+
+            let imgSrc = `/posts/${cleanUrl}`;
+
             if (w && h) {
                 return `<img src="${imgSrc}" alt="${alt}" width="${w}" height="${h}" style="width:${w}px;height:${h}px;">`;
             }
