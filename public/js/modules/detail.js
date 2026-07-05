@@ -1,5 +1,12 @@
 import { listView, detailView } from "./dom.js";
-import { getNoteById, getAllNotes, setCurrentTag } from "./state.js";
+import {
+    getNoteFromCache,
+    setNoteCache,
+    getCurrentId,
+    getNotesIndex,
+    getFilteredNotes,
+    setCurrentTag,
+} from "./state.js";
 
 const lightbox = document.getElementById("image-lightbox");
 const lightboxImg = lightbox?.querySelector(".lightbox-img");
@@ -33,6 +40,52 @@ const langExtensionMap = {
     text: "txt",
     plaintext: "txt",
 };
+
+async function loadNoteData(id) {
+    let data = getNoteFromCache(id);
+    if (data) return data;
+
+    const indexEntry = getNotesIndex().find((n) => n.id === id);
+    if (!indexEntry) throw new Error("笔记不存在");
+    const res = await fetch(indexEntry.url);
+    data = await res.json();
+    setNoteCache(id, data);
+    return data;
+}
+
+function generateTOC(container) {
+    const headings = container.querySelectorAll("h1, h2, h3");
+    if (headings.length === 0) return "";
+
+    let tocHtml = '<nav class="toc"><h2>📑 目录</h2><ul>';
+    const stack = [{ level: 0 }];
+
+    headings.forEach((heading, index) => {
+        const level = parseInt(heading.tagName.charAt(1));
+        const text = heading.textContent.trim();
+        const id = `heading-${index}`;
+        heading.id = id;
+
+        while (level > stack[stack.length - 1].level) {
+            tocHtml += "<ul>";
+            stack.push({ level });
+        }
+
+        while (level < stack[stack.length - 1].level) {
+            tocHtml += "</ul>";
+            stack.pop();
+        }
+
+        tocHtml += `<li><a href="#${id}">${text}</a></li>`;
+    });
+
+    while (stack.length > 1) {
+        tocHtml += "</ul>";
+        stack.pop();
+    }
+    tocHtml += "</nav>";
+    return tocHtml;
+}
 
 function addCodeActions() {
     const pres = detailView.querySelectorAll(".note-content pre");
@@ -98,18 +151,20 @@ function addCodeActions() {
     });
 }
 
-export function renderDetail(id, onBack) {
-    const note = getNoteById(id);
-    if (!note) {
-        detailView.innerHTML = `<p style="color: var(--text-muted);">笔记不存在</p>`;
+export async function renderDetail(id, onBack) {
+    let note;
+    try {
+        note = await loadNoteData(id);
+    } catch (err) {
+        detailView.innerHTML = `<p style="color: var(--text-muted);">笔记加载失败或不存在</p>`;
         return;
     }
 
-    const allNotes = getAllNotes();
-    const currentIndex = allNotes.findIndex((n) => n.id === id);
-    const prevNote = currentIndex > 0 ? allNotes[currentIndex - 1] : null;
+    const filtered = getFilteredNotes();
+    const currentIndex = filtered.findIndex((n) => n.id === id);
+    const prevNote = currentIndex > 0 ? filtered[currentIndex - 1] : null;
     const nextNote =
-        currentIndex < allNotes.length - 1 ? allNotes[currentIndex + 1] : null;
+        currentIndex < filtered.length - 1 ? filtered[currentIndex + 1] : null;
 
     const wordCount = note.content.replace(/<[^>]+>/g, "").length;
     const readTime = Math.max(1, Math.round(wordCount / 200));
@@ -127,18 +182,12 @@ export function renderDetail(id, onBack) {
     }
 
     let navHtml = `<div class="post-nav">`;
-    if (prevNote) {
-        navHtml += `<a class="nav-prev" data-id="${prevNote.id}">← ${prevNote.title}</a>`;
-    } else {
-        navHtml += `<span class="nav-placeholder"></span>`;
-    }
-
-    if (nextNote) {
-        navHtml += `<a class="nav-next" data-id="${nextNote.id}">${nextNote.title} →</a>`;
-    } else {
-        navHtml += `<span class="nav-placeholder"></span>`;
-    }
-
+    navHtml += prevNote
+        ? `<a class="nav-prev" data-id="${prevNote.id}">← ${prevNote.title}</a>`
+        : `<span class="nav-placeholder"></span>`;
+    navHtml += nextNote
+        ? `<a class="nav-next" data-id="${nextNote.id}">${nextNote.title} →</a>`
+        : `<span class="nav-placeholder"></span>`;
     navHtml += `</div>`;
 
     detailView.innerHTML = `
@@ -157,38 +206,33 @@ export function renderDetail(id, onBack) {
         ${navHtml}
     `;
 
+    const contentDiv = detailView.querySelector(".note-content");
+    const tocHtml = generateTOC(contentDiv);
+    if (tocHtml) {
+        contentDiv.insertAdjacentHTML("afterbegin", tocHtml);
+    }
+
     addCodeActions();
 
     detailView.querySelector("#back-link").addEventListener("click", () => {
-        if (typeof onBack === "function") {
-            onBack();
-        }
+        if (typeof onBack === "function") onBack();
     });
 
     detailView.querySelectorAll(".note-tag").forEach((el) => {
         el.addEventListener("click", function (e) {
             e.stopPropagation();
             const tag = this.dataset.tag;
-            if (tag) {
-                setCurrentTag(tag);
-                if (typeof onBack === "function") {
-                    onBack();
-                }
-            }
+            setCurrentTag(tag);
+            if (typeof onBack === "function") onBack();
         });
     });
 
     detailView.querySelectorAll(".nav-prev, .nav-next").forEach((el) => {
         el.addEventListener("click", function () {
             const targetId = this.dataset.id;
-            if (targetId) {
-                renderDetail(targetId, onBack);
-            }
+            renderDetail(targetId, onBack);
         });
     });
-
-    listView.style.display = "none";
-    detailView.style.display = "block";
 
     detailView.querySelectorAll(".note-content img").forEach((img) => {
         img.style.cursor = "zoom-in";
@@ -215,5 +259,7 @@ export function renderDetail(id, onBack) {
         });
     }
 
+    listView.style.display = "none";
+    detailView.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }

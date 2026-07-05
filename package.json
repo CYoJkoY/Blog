@@ -12,7 +12,6 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@mogeko/maple-mono-cn": "^7.9.0",
         "highlight.js": "^11.11.1"
     }
 }

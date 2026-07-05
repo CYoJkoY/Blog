@@ -6,7 +6,7 @@ import {
     setCurrentTag,
     getSearchKeyword,
     setSearchKeyword,
-    getAllNotes,
+    getNotesIndex,
 } from "./state.js";
 
 let searchTimer = null;
@@ -36,7 +36,7 @@ export function renderList(onSelect) {
 
     const tagBar = document.getElementById("tag-bar");
     let tagHtml = "";
-    const totalCount = getAllNotes().length;
+    const totalCount = getNotesIndex().length;
     tagHtml += `<span class="tag-item ${!currentTag ? "active" : ""}" data-tag="">全部 (${totalCount})</span>`;
     allTags.forEach(({ tag, count }) => {
         const active = tag === currentTag ? "active" : "";
