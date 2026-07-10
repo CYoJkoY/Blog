@@ -24,6 +24,9 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v5
 
+            - name: Clean old build artifacts
+              run: rm -rf public/data
+
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
@@ -33,13 +36,17 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Build data
-              run: node build.js
-
             - name: Setup Pages
               uses: actions/configure-pages@v5
+              id: configure-pages
               with:
                   enablement: true
+
+            - name: Build data
+              run: node build.js
+              env:
+                  BASE_URL: ${{ steps.configure-pages.outputs.base_url }}
+                  CI: true
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3

@@ -5,6 +5,9 @@ const frontMatter = require("front-matter");
 const marked = require("marked");
 const hljs = require("highlight.js");
 
+const IS_CI = process.env.CI === "true";
+const BASE_URL = process.env.BASE_URL;
+
 const POSTS_DIR = path.join(__dirname, "public", "posts");
 const OUTPUT_DIR = path.join(__dirname, "public", "data");
 const NOTES_DIR = path.join(OUTPUT_DIR, "notes");
@@ -19,7 +22,7 @@ const CACHE_PATH = path.join(__dirname, ".buildcache.json");
 });
 
 let cache = {};
-if (fs.existsSync(CACHE_PATH)) {
+if (!IS_CI && fs.existsSync(CACHE_PATH)) {
     try {
         cache = JSON.parse(fs.readFileSync(CACHE_PATH, "utf-8"));
     } catch (e) {
@@ -93,7 +96,7 @@ for (const file of files) {
             date: cached.date,
             tags: cached.tags,
             summary: cached.summary,
-            url: `/data/notes/${cached.outputFile}`,
+            url: `${BASE_URL}/data/notes/${cached.outputFile}`,
         });
         cachedCount++;
         console.log(`⏩ 缓存命中：${file}`);
@@ -143,11 +146,12 @@ for (const file of files) {
 
             let cleanUrl = url.replace(/^\.\//, "");
 
-            let imgSrc = `/posts/${cleanUrl}`;
+            let imgSrc = `${BASE_URL}/posts/${cleanUrl}`;
 
             if (w && h) {
                 return `<img src="${imgSrc}" alt="${alt}" width="${w}" height="${h}" style="width:${w}px;height:${h}px;">`;
             }
+
             return `![${alt}](${imgSrc})`;
         },
     );
@@ -175,7 +179,7 @@ for (const file of files) {
         continue;
     }
 
-    if (cached && cached.outputFile !== outputFile) {
+    if (!IS_CI && cached && cached.outputFile !== outputFile) {
         const oldPath = path.join(NOTES_DIR, cached.outputFile);
         if (fs.existsSync(oldPath)) {
             fs.unlinkSync(oldPath);
@@ -183,17 +187,19 @@ for (const file of files) {
         }
     }
 
-    cache[file] = {
-        hash: contentHash,
-        lastModified: stat.mtimeMs,
-        outputFile,
-        id,
-        title,
-        date,
-        tags,
-        summary,
-    };
-    cacheChanged = true;
+    if (!IS_CI) {
+        cache[file] = {
+            hash: contentHash,
+            lastModified: stat.mtimeMs,
+            outputFile,
+            id,
+            title,
+            date,
+            tags,
+            summary,
+        };
+        cacheChanged = true;
+    }
     addedCount++;
 
     notesIndex.push({
@@ -202,7 +208,7 @@ for (const file of files) {
         date,
         tags,
         summary,
-        url: `data/notes/${outputFile}`,
+        url: `${BASE_URL}/data/notes/${outputFile}`,
     });
 }
 
@@ -211,8 +217,10 @@ notesIndex.sort((a, b) => (a.date > b.date ? -1 : 1));
 try {
     fs.writeFileSync(INDEX_PATH, JSON.stringify(notesIndex));
     console.log(`📋 索引已写入：${INDEX_PATH}`);
-    fs.writeFileSync(CACHE_PATH, JSON.stringify(cache, null, 2));
-    console.log(`💾 缓存已更新：${CACHE_PATH}`);
+    if (!IS_CI) {
+        fs.writeFileSync(CACHE_PATH, JSON.stringify(cache, null, 2));
+        console.log(`💾 缓存已更新：${CACHE_PATH}`);
+    }
 } catch (e) {
     console.error("❌ 写入索引或缓存失败：", e.message);
     process.exit(1);
